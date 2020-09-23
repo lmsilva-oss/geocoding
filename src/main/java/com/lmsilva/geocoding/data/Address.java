@@ -1,27 +1,25 @@
 package com.lmsilva.geocoding.data;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Address {
-    @JsonProperty(required = true)
+    @JsonProperty
     private String id;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String streetName;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String number;
     @JsonProperty
     private String complement;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String neighbourhood;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String city;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String state;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String country;
-    @JsonProperty(required = true)
+    @JsonProperty
     private String zipcode;
     @JsonProperty
     private String latitude;
@@ -114,5 +112,16 @@ public class Address {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public static boolean validateRequiredFields(Address address) {
+        return address.getId() != null
+                && address.getStreetName() != null
+                && address.getNumber() != null
+                && address.getNeighbourhood() != null
+                && address.getCity() != null
+                && address.getState() != null
+                && address.getCountry() != null
+                && address.getZipcode() != null;
     }
 }

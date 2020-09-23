@@ -25,6 +25,11 @@ class AddressTest {
         address.setLongitude("testLongitude");
 
         assertEquals(expectedJson, mapper.writeValueAsString(address));
+        assertTrue(Address.validateRequiredFields(address));
     }
 
+    @Test
+    public void testRequiredFields() {
+        assertFalse(Address.validateRequiredFields(new Address()));
+    }
 }
