@@ -3,27 +3,16 @@ package com.lmsilva.geocoding.data;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Address {
-    @JsonProperty
     private String id;
-    @JsonProperty
     private String streetName;
-    @JsonProperty
     private String number;
-    @JsonProperty
     private String complement;
-    @JsonProperty
-    private String neighbourhood;
-    @JsonProperty
+    private String neighborhood;
     private String city;
-    @JsonProperty
     private String state;
-    @JsonProperty
     private String country;
-    @JsonProperty
     private String zipcode;
-    @JsonProperty
     private String latitude;
-    @JsonProperty
     private String longitude;
 
     public String getId() {
@@ -58,12 +47,12 @@ public class Address {
         this.complement = complement;
     }
 
-    public String getNeighbourhood() {
-        return neighbourhood;
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
-    public void setNeighbourhood(String neighbourhood) {
-        this.neighbourhood = neighbourhood;
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getCity() {
@@ -114,11 +103,17 @@ public class Address {
         this.longitude = longitude;
     }
 
+    public static String getHumanAddress(Address address) {
+        return String.format(
+                "%s %s, %s, %s, %s", address.getNumber(), address.getStreetName(), address.getCity(), address.getState(), address.getCountry()
+        );
+    }
+
     public static boolean validateRequiredFields(Address address) {
         return address.getId() != null
                 && address.getStreetName() != null
                 && address.getNumber() != null
-                && address.getNeighbourhood() != null
+                && address.getNeighborhood() != null
                 && address.getCity() != null
                 && address.getState() != null
                 && address.getCountry() != null
