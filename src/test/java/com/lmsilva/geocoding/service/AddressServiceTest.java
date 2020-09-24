@@ -57,4 +57,16 @@ class AddressServiceTest {
 
         assertEquals(address.toString(), read.toString());
     }
+
+    @Test
+    void testDelete() throws Exception {
+        AddressService service = getInMemoryAddressService();
+        Address address = getTestAddress();
+
+        service.create(address);
+
+        assertNotNull(service.read(address));
+        service.delete(address);
+        assertNull(service.read(address));
+    }
 }
