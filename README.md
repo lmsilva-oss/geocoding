@@ -1,1 +1,1 @@
-A simple CRUD application for storing addresses, using Google's Geocoding API
+Simple CRUD for Addresses, with fallback latitude and longitude from Google's Geocoding API
