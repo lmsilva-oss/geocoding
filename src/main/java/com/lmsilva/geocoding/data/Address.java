@@ -1,6 +1,7 @@
 package com.lmsilva.geocoding.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lmsilva.geocoding.exception.MissingRequiredParameterException;
 
 public class Address {
     private String id;
@@ -109,14 +110,43 @@ public class Address {
         );
     }
 
-    public static boolean validateRequiredFields(Address address) {
-        return address.getId() != null
-                && address.getStreetName() != null
-                && address.getNumber() != null
-                && address.getNeighborhood() != null
-                && address.getCity() != null
-                && address.getState() != null
-                && address.getCountry() != null
-                && address.getZipcode() != null;
+    public static void validateRequiredFields(Address address) throws MissingRequiredParameterException {
+        if (address.getId() == null) {
+            throwException("id");
+        }
+
+        if (address.getStreetName() == null) {
+            throwException("Street Name");
+        }
+
+        if (address.getNumber() == null) {
+            throwException("Number");
+        }
+
+        if (address.getNeighborhood() == null) {
+            throwException("Neighborhood");
+        }
+
+        if (address.getCity() == null) {
+            throwException("City");
+        }
+
+        if (address.getState() == null) {
+            throwException("State");
+        }
+
+        if (address.getCountry() == null) {
+            throwException("Country");
+        }
+
+        if (address.getZipcode() == null) {
+            throwException("Zipcode");
+        }
     }
+
+    private static void throwException(String missingFieldName) throws MissingRequiredParameterException {
+        String BASE_MESSAGE = "Missing address field: %s";
+        throw new MissingRequiredParameterException(String.format(BASE_MESSAGE, missingFieldName));
+    }
+
 }

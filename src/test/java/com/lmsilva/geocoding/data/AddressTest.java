@@ -1,6 +1,7 @@
 package com.lmsilva.geocoding.data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lmsilva.geocoding.exception.MissingRequiredParameterException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,11 +26,16 @@ class AddressTest {
         address.setLongitude("testLongitude");
 
         assertEquals(expectedJson, mapper.writeValueAsString(address));
-        assertTrue(Address.validateRequiredFields(address));
+        Address.validateRequiredFields(address);
     }
 
     @Test
     public void testRequiredFields() {
-        assertFalse(Address.validateRequiredFields(new Address()));
+        try {
+            Address.validateRequiredFields(new Address());
+            fail("Should've thrown MissingRequiredParameterException!");
+        } catch (MissingRequiredParameterException e) {
+            assertNotNull(e.getMessage());
+        }
     }
 }
