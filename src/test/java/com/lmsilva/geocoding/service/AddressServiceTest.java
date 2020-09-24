@@ -10,11 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddressServiceTest {
 
-    @Test
-    void testUpdate() throws Exception {
+    AddressService getInMemoryAddressService() {
         AddressRepository repository = new InMemoryAddressRepository();
-        AddressService service = new AddressService(repository);
+        return new AddressService(repository);
+    }
 
+    Address getTestAddress() {
         Address address = new Address();
         address.setId("testId");
         address.setStreetName("testStreetName");
@@ -25,6 +26,15 @@ class AddressServiceTest {
         address.setCountry("testCountry");
         address.setZipcode("testZipcode");
 
+        return address;
+    }
+
+    @Test
+    void testUpdate() throws Exception {
+        AddressService service = getInMemoryAddressService();
+
+        Address address = getTestAddress();
+
         service.create(address);
 
         Address updated = new ObjectMapper().readValue(address.toString(), Address.class); // ensure we're doing a deep copy
@@ -34,5 +44,17 @@ class AddressServiceTest {
 
         assertNotEquals(address.toString(), result.toString());
         assertEquals(updated.toString(), result.toString());
+    }
+
+    @Test
+    void testRead() throws Exception {
+        AddressService service = getInMemoryAddressService();
+        Address address = getTestAddress();
+
+        service.create(address);
+
+        Address read = service.read(address);
+
+        assertEquals(address.toString(), read.toString());
     }
 }
