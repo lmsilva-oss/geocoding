@@ -107,7 +107,7 @@ public class Address {
         this.longitude = longitude;
     }
 
-    public static String getHumanAddress(Address address) {
+    public static String toHumanAddress(Address address) {
         return String.format(
                 "%s %s, %s, %s, %s", address.getNumber(), address.getStreetName(), address.getCity(), address.getState(), address.getCountry()
         );

@@ -4,10 +4,14 @@ import com.lmsilva.geocoding.data.Address;
 import com.lmsilva.geocoding.exception.MissingRequiredParameterException;
 import com.lmsilva.geocoding.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddressService {
+
+    @Value("${geocode.api.key}")
+    private String apiKey;
 
     AddressRepository repository;
 
@@ -18,6 +22,16 @@ public class AddressService {
 
     public Address create(Address address) throws MissingRequiredParameterException {
         Address.validateRequiredFields(address);
+        if (shouldFetchAdditionalInfoFromGoogleAPI(address)) {
+            String properlyFormattedAddress = Address.toHumanAddress(address);
+            GeocodeAPIService.LatitudeLongitude latitudeLongitude =
+                    GeocodeAPIService.fetchLatitudeLongitude(properlyFormattedAddress, apiKey);
+
+            if (latitudeLongitude != null) {
+                address.setLongitude(latitudeLongitude.getLongitude());
+                address.setLatitude(latitudeLongitude.getLatitude());
+            }
+        }
         return repository.createAddress(address);
     }
 
@@ -34,5 +48,9 @@ public class AddressService {
     public void delete(Address address) throws MissingRequiredParameterException {
         Address.validateRequiredFields(address);
         repository.deleteAddress(address);
+    }
+
+    private boolean shouldFetchAdditionalInfoFromGoogleAPI(Address address) {
+        return address.getLatitude() == null || address.getLongitude() == null;
     }
 }
