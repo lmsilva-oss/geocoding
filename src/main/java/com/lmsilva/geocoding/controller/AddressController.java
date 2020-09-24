@@ -51,4 +51,17 @@ public class AddressController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/address")
+    public ResponseEntity<String> readAddress(@RequestBody Address address) {
+        try {
+            Address returnAddress = addressService.read(address);
+            if (returnAddress == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(returnAddress.toString());
+        } catch (MissingRequiredParameterException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
