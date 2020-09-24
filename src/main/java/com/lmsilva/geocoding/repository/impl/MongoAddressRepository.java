@@ -1,4 +1,4 @@
-package com.lmsilva.geocoding.repository.impl.mongo;
+package com.lmsilva.geocoding.repository.impl;
 
 import com.lmsilva.geocoding.data.Address;
 import com.lmsilva.geocoding.repository.AddressRepository;
