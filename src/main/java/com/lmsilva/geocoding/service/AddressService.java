@@ -1,6 +1,7 @@
 package com.lmsilva.geocoding.service;
 
 import com.lmsilva.geocoding.data.Address;
+import com.lmsilva.geocoding.exception.MissingRequiredParameterException;
 import com.lmsilva.geocoding.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,36 +16,23 @@ public class AddressService {
         this.repository = repository;
     }
 
-    public Address create(Address address) {
-        if (Address.validateRequiredFields(address)) {
-            return repository.createAddress(address);
-        } else {
-            return null;
-        }
+    public Address create(Address address) throws MissingRequiredParameterException {
+        Address.validateRequiredFields(address);
+        return repository.createAddress(address);
     }
 
-    public Address read(Address address) {
-        if (Address.validateRequiredFields(address)) {
-            return repository.readAddress(address);
-        } else {
-            return null;
-        }
+    public Address read(Address address) throws MissingRequiredParameterException {
+        Address.validateRequiredFields(address);
+        return repository.readAddress(address);
     }
 
-    public Address update(Address address) {
-        if (Address.validateRequiredFields(address)) {
-            return repository.updateAddress(address);
-        } else {
-            return null;
-        }
+    public Address update(Address address) throws MissingRequiredParameterException {
+        Address.validateRequiredFields(address);
+        return repository.updateAddress(address);
     }
 
-    public Address delete(Address address) {
-        if (Address.validateRequiredFields(address)) {
-            repository.deleteAddress(address);
-            return address;
-        } else {
-            return  null;
-        }
+    public void delete(Address address) throws MissingRequiredParameterException {
+        Address.validateRequiredFields(address);
+        repository.deleteAddress(address);
     }
 }
