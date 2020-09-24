@@ -25,26 +25,19 @@ public class AddressController {
     public ResponseEntity<String> createAddress(@RequestBody Address address) {
         try {
             Address result = addressService.create(address);
-            return ResponseEntity.ok(MAPPER.writeValueAsString(result));
+            return ResponseEntity.ok(result.toString());
         } catch (MissingRequiredParameterException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
 
     @PutMapping("/address")
     public ResponseEntity<String> updateAddress(@RequestBody Address address) {
         try {
             Address result = addressService.update(address);
-            return ResponseEntity.ok(MAPPER.writeValueAsString(result));
+            return ResponseEntity.ok(result.toString());
         } catch (MissingRequiredParameterException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }

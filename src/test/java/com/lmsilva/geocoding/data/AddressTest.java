@@ -25,7 +25,7 @@ class AddressTest {
         address.setLatitude("testLatitude");
         address.setLongitude("testLongitude");
 
-        assertEquals(expectedJson, mapper.writeValueAsString(address));
+        assertEquals(expectedJson, address.toString());
         Address.validateRequiredFields(address);
     }
 

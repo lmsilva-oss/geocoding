@@ -1,6 +1,8 @@
 package com.lmsilva.geocoding.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lmsilva.geocoding.exception.MissingRequiredParameterException;
 
 public class Address {
@@ -149,4 +151,12 @@ public class Address {
         throw new MissingRequiredParameterException(String.format(BASE_MESSAGE, missingFieldName));
     }
 
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
 }

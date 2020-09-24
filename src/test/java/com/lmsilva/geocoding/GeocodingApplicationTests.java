@@ -39,7 +39,7 @@ class GeocodingApplicationTests {
 		address.setCountry("testCountry");
 		address.setZipcode("testZipcode");
 
-		String expectedResponse = MAPPER.writeValueAsString(address);
+		String expectedResponse = address.toString();
 
 		given(addressRepository.createAddress(any(Address.class))).willReturn(address);
 
