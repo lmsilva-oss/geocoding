@@ -17,6 +17,8 @@
         <mongo-driver.version>3.12.7</mongo-driver.version>
         <bson.version>4.1.0</bson.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
+        <openapi-generator-maven-plugin.version>6.0.0</openapi-generator-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -48,6 +50,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -69,6 +77,25 @@
                     <source>8</source>
                     <target>8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/apidocs.json</inputSpec>
+                            <generatorName>javascript</generatorName>
+                            <configOptions>
+                                <sourceFolder>gen/</sourceFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

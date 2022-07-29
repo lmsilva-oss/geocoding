@@ -4,7 +4,12 @@ Requirements:
 * MongoDB: add the hostname and port (optionally database name) to src/main/resources/application.properties
 * Google Geocode API Key: add it to src/main/resources/application.properties
 
-This project is developed using the IntelliJ IDEA.
+This project is developed using the **IntelliJ IDEA**.
+
+Generate the **Javascript client** using `mvn generate-sources`.
+
+Then, refer to [target/generated-sources/openapi/README.md](./target/generated-sources/openapi/README.md) on how to
+use the generated npm module **locally**.
 
 Notes:
 * The GET request mapping is a bit weird, it could be done differently: 
