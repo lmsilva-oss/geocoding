@@ -4,6 +4,8 @@ Requirements:
 * MongoDB: add the hostname and port (optionally database name) to src/main/resources/application.properties
 * Google Geocode API Key: add it to src/main/resources/application.properties
 
+This project is developed using the IntelliJ IDEA.
+
 Notes:
 * The GET request mapping is a bit weird, it could be done differently: 
     * add a new mapping for /addresses to fetch all addresses currently stored
