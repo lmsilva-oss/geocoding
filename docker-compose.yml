@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: 'mongo'
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=geocoding
+    ports:
+      - '27017:27017'
